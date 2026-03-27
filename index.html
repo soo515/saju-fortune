@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korean Four Pillars of Destiny | Saju Reading</title>
+    <meta name="description" content="Discover your destiny through the ancient Korean art of Saju - Four Pillars of Destiny. Get your personalized reading based on your birth date.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+
+    <header>
+        <div class="emblem">&#9788;</div>
+        <h1>Four Pillars of Destiny</h1>
+        <p class="subtitle">&#22235;&#26609;&#20843;&#23383; &mdash; Saju Palja</p>
+        <p class="intro">An ancient Korean divination art that reveals your destiny through the cosmic energy present at the moment of your birth.</p>
+    </header>
+
+    <main>
+        <section class="input-section" id="inputSection">
+            <h2>Enter Your Birth Information</h2>
+            <form id="sajuForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="birthYear">Year of Birth</label>
+                        <input type="number" id="birthYear" min="1924" max="2024" placeholder="e.g. 1990" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthMonth">Month</label>
+                        <select id="birthMonth" required>
+                            <option value="">Select</option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthDay">Day</label>
+                        <input type="number" id="birthDay" min="1" max="31" placeholder="1-31" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group hour-group">
+                        <label for="birthHour">Hour of Birth (optional)</label>
+                        <select id="birthHour">
+                            <option value="-1">I don't know</option>
+                            <option value="0">11pm - 1am (Rat / &#23376;)</option>
+                            <option value="1">1am - 3am (Ox / &#19985;)</option>
+                            <option value="2">3am - 5am (Tiger / &#23493;)</option>
+                            <option value="3">5am - 7am (Rabbit / &#21359;)</option>
+                            <option value="4">7am - 9am (Dragon / &#36784;)</option>
+                            <option value="5">9am - 11am (Snake / &#24051;)</option>
+                            <option value="6">11am - 1pm (Horse / &#21320;)</option>
+                            <option value="7">1pm - 3pm (Goat / &#26410;)</option>
+                            <option value="8">3pm - 5pm (Monkey / &#30003;)</option>
+                            <option value="9">5pm - 7pm (Rooster / &#37193;)</option>
+                            <option value="10">7pm - 9pm (Dog / &#25100;)</option>
+                            <option value="11">9pm - 11pm (Pig / &#20133;)</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn-reveal">Reveal Your Destiny</button>
+            </form>
+        </section>
+
+        <section class="result-section" id="resultSection" style="display:none;">
+            <button class="btn-back" id="btnBack">&larr; New Reading</button>
+
+            <h2>Your Four Pillars</h2>
+            <div class="pillars" id="pillars"></div>
+
+            <div class="reading-card" id="elementCard">
+                <h3>Your Dominant Element</h3>
+                <div id="elementResult"></div>
+            </div>
+
+            <div class="reading-card" id="personalityCard">
+                <h3>Personality &amp; Character</h3>
+                <div id="personalityResult"></div>
+            </div>
+
+            <div class="reading-card" id="careerCard">
+                <h3>Career &amp; Talents</h3>
+                <div id="careerResult"></div>
+            </div>
+
+            <div class="reading-card" id="relationshipCard">
+                <h3>Relationships</h3>
+                <div id="relationshipResult"></div>
+            </div>
+
+            <div class="reading-card fortune-card" id="fortuneCard">
+                <h3>&#9733; Today's Fortune &#9733;</h3>
+                <div id="zodiacInfo"></div>
+                <div id="fortuneResult"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Based on the traditional Korean art of <em>Saju Myeongrihak</em> (&#22235;&#26609;&#21629;&#29702;&#23416;)</p>
+        <p class="disclaimer">For entertainment purposes. Embrace the wisdom, but forge your own path.</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/saju.js"></script>
+    <script src="js/fortune.js"></script>
+    <script>
+        const form = document.getElementById('sajuForm');
+        const inputSection = document.getElementById('inputSection');
+        const resultSection = document.getElementById('resultSection');
+        const btnBack = document.getElementById('btnBack');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const year = parseInt(document.getElementById('birthYear').value);
+            const month = parseInt(document.getElementById('birthMonth').value);
+            const day = parseInt(document.getElementById('birthDay').value);
+            const hour = parseInt(document.getElementById('birthHour').value);
+
+            const result = calculateSaju(year, month, day, hour);
+            displayResult(result);
+
+            inputSection.style.display = 'none';
+            resultSection.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        btnBack.addEventListener('click', function() {
+            resultSection.style.display = 'none';
+            inputSection.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Animated stars background
+        (function createStars() {
+            const container = document.getElementById('stars');
+            for (let i = 0; i < 80; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (2 + Math.random() * 3) + 's';
+                container.appendChild(star);
+            }
+        })();
+    </script>
+</body>
+</html>
