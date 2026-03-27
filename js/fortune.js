@@ -68,6 +68,7 @@ function displayFortune(zodiacAnimal, dominantElement) {
     // Zodiac info
     document.getElementById('zodiacInfo').innerHTML = `
         <span class="zodiac-badge">Year of the ${zodiacAnimal} ${getAnimalEmoji(zodiacAnimal)}</span>
+        <button class="zodiac-help-btn" id="zodiacHelpBtn" title="What is the Korean Zodiac?">?</button>
     `;
 
     // Fortune result

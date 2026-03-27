@@ -110,6 +110,29 @@
         </section>
     </main>
 
+    <!-- Zodiac Help Modal -->
+    <div class="modal-overlay" id="zodiacModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h3>The Korean Zodiac (띠 - Tti)</h3>
+            <p class="modal-intro">In Korean tradition, your birth year determines your zodiac animal, which cycles every 12 years. Each animal carries unique traits that shape your personality and fortune.</p>
+            <div class="zodiac-grid">
+                <div class="zodiac-item"><span>🐀</span><strong>Rat</strong><br>Clever, resourceful</div>
+                <div class="zodiac-item"><span>🐂</span><strong>Ox</strong><br>Diligent, dependable</div>
+                <div class="zodiac-item"><span>🐅</span><strong>Tiger</strong><br>Brave, confident</div>
+                <div class="zodiac-item"><span>🐇</span><strong>Rabbit</strong><br>Gentle, elegant</div>
+                <div class="zodiac-item"><span>🐉</span><strong>Dragon</strong><br>Ambitious, powerful</div>
+                <div class="zodiac-item"><span>🐍</span><strong>Snake</strong><br>Wise, intuitive</div>
+                <div class="zodiac-item"><span>🐎</span><strong>Horse</strong><br>Energetic, free-spirited</div>
+                <div class="zodiac-item"><span>🐐</span><strong>Goat</strong><br>Creative, gentle</div>
+                <div class="zodiac-item"><span>🐒</span><strong>Monkey</strong><br>Witty, intelligent</div>
+                <div class="zodiac-item"><span>🐓</span><strong>Rooster</strong><br>Honest, hardworking</div>
+                <div class="zodiac-item"><span>🐕</span><strong>Dog</strong><br>Loyal, faithful</div>
+                <div class="zodiac-item"><span>🐖</span><strong>Pig</strong><br>Generous, optimistic</div>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>Based on the traditional Korean art of <em>Saju Myeongrihak</em> (&#22235;&#26609;&#21629;&#29702;&#23416;)</p>
         <p class="disclaimer">For entertainment purposes. Embrace the wisdom, but forge your own path.</p>
@@ -143,6 +166,20 @@
             resultSection.style.display = 'none';
             inputSection.style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Zodiac help modal
+        const zodiacModal = document.getElementById('zodiacModal');
+        document.addEventListener('click', function(e) {
+            if (e.target.id === 'zodiacHelpBtn' || e.target.classList.contains('zodiac-help-btn')) {
+                zodiacModal.classList.add('active');
+            }
+            if (e.target.id === 'modalClose') {
+                zodiacModal.classList.remove('active');
+            }
+            if (e.target === zodiacModal) {
+                zodiacModal.classList.remove('active');
+            }
         });
 
         // Animated stars background
